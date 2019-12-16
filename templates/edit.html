@@ -1,0 +1,221 @@
+{% extends 'base.html' %} {% block content %}
+
+<form action="{{ url_for('edit', id=recipe._id) }}" method="POST">
+    <section>
+        <div class="row">
+            <h5 class="center">Edit Your Recipe</h5>
+
+            <!-- Select Filter -->
+            <div class="input-field col s12 m4 13">
+                 <select name="diet" required>
+                    <optgroup label="Diet">
+                        <option value="{{ recipe.diet }}" selected  class="left">{{ recipe.diet }}</option>
+                        <option value="" selcted data-icon="/static/img/unknown.png" class="left">None</option>
+                        <option value="low-carbohydrate" data-icon="/static/img/low-carb.png" class="left">Low Carbohydrate</option>
+                        <option value="vegan" data-icon="/static/img/vegan.png" class="left">Vegan</option>
+                        <option value="vegetarian" data-icon="/static/img/vegetarian.png" class="left">Vegetarian</option>
+                    </optgroup>
+                </select>
+                <label>Select Diet</label>
+            </div>
+
+            <!-- Select Filter -->
+            <div class="input-field col s12 m4 13">
+                <select name="cuisine" required>
+                    <optgroup label="Cuisine">
+                         	<option value="{{ recipe.cuisine }}" selected  class="left">{{ recipe.cuisine }}</option>
+							<option value="unknown" data-icon="/static/img/unknown.png" class="left">Unknown</option>
+							<option value="asian" data-icon="/static/img/asia.png" class="left">Asian</option>
+							<option value="latin" data-icon="/static/img/latin.png" class="left">Latin</option>
+							<option value="usa" data-icon="/static/img/usa.png" class="left">USA</option>
+							<option value="european" data-icon="/static/img/Europe.png" class="left">European</option>
+							<option value="african" data-icon="/static/img/african.png" class="left">African</option>
+                    </optgroup>
+                    <optgroup label="Select All">
+                        <option value="7" data-icon="/static/img/world.png" class="left">All</option>
+                    </optgroup>
+                </select>
+                <label>Select Cuisine</label>
+            </div>
+
+            <!-- Multiple Select Filter -->
+            <div class="input-field col s12 m4 13">
+                <select name="allergen" id="allergen" multiple required>
+                    <optgroup label="Allergen">
+                        <option name="allergen" selected value="" data-icon="/static/img/select-all.png" class="left" hidden>Select</option>
+                        <option name="allergen" {% if 'nuts' in recipe.allergens %} selected {% endif %} value="nuts" data-icon="/static/img/nuts.png" class="left">Nuts</option>
+                        <option name="allergen" {% if 'eggs' in recipe.allergens %} selected {% endif %} value="eggs" data-icon="/static/img/broken-egg.png" class="left">Eggs</option>
+                        <option name="allergen" {% if 'soy' in recipe.allergens %} selected {% endif %} value="soy" data-icon="/static/img/soy.png" class="left">Soy</option>
+                        <option name="allergen" {% if 'dairy' in recipe.allergens %} selected {% endif %} value="dairy" data-icon="/static/img/cow.png" class="left">Dairy</option>
+                        <option name="allergen" {% if 'crustacean' in recipe.allergens %} selected {% endif %} value="crustacean" data-icon="/static/img/Crustacean-2.png" class="left">Crustacean</option>
+                        <option name="allergen" {% if 'gluten' in recipe.allergens %} selected {% endif %} value="gluten" data-icon="/static/img/gluten.png" class="left">Gluten</option>
+                        <option name="allergen" {% if 'fish' in recipe.allergens %} selected {% endif %} value="fish" data-icon="/static/img/fish-1.png" class="left">Fish</option>
+                    </optgroup>
+                </select>
+                <label>Exclude Allergens</label>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+
+                    <!-- Text Input Field -->
+                    <div class="input-field col s6">
+                        <input id="author_name" name="author" type="text" class="validate" value="{{ recipe.author }}" placeholder="{{ recipe.author }}" required>
+                        <label for="author_name">Edit Author Name</label>
+                    </div>
+                    
+                    <!-- Text Input Field -->
+                    <div class="input-field col s6">
+                        <input id="recipe_name" name="recipe" type="text" class="validate" value="{{ recipe.recipe }}" placeholder="{{ recipe.name }}" required>
+                        <label for="recipe_name">Edit Recipe Name</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12">
+                <div class="row">
+
+                    <!-- Text Input Field -->
+                    <div class="input-field col s12">
+						 <input id="textarea1" type="text" name="image" value="{{ recipe.image }}" placeholder="{{ recipe.image }}" required>
+                        <label for="textarea1">Edit Image URL</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+
+            <!-- Ingredient Todo Form 1 -->
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <h5 class="card-title center"> Edit Ingredients</h5>
+						<a id="add-ingredient" class="btn varBtnTwo">
+							<i class="material-icons">add</i>
+						</a>
+                        <div id="todo-form">
+                            <div class="input-field">
+                                <input id="todo" type="text" placeholder="Add or Remove Ingredients...">
+                            </div>
+                        </div>
+
+                        <!-- Ingredient Todo Form 1 Example & Delete -->
+                        <ul class="collection todos">
+							{% for ingredient in recipe.ingredients %}
+								<li class="collection-item">
+								 <div>{{ ingredient }}
+								   <input value="{{ ingredient }}" type="hidden" name="ingredient">
+								   <a href="#!" class="secondary-content delete">
+									 <i class="material-icons">close</i>
+								   </a>
+								 </div>
+							   </li>
+							{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method Todo Form 2 -->
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <h5 class="card-title center">Edit Methods</h5>
+						<a id="add-method" class="btn varBtnTwo">
+							<i class="material-icons">add</i>
+						</a>
+                        <div id="todo-form-2">
+                            <div class="input-field">
+                                <input id="todo-2" type="text" placeholder="Add or Remove Methods...">
+                            </div>
+                        </div>
+
+                        <!-- Method Todo Form 2 Example & Delete -->
+                        <ul class="collection method">
+							{% for method in recipe.method %}
+								<li class="collection-item">
+								 <div>{{ method }}
+								   <input value="{{ method }}" type="hidden" name="method">
+								   <a href="#!" class="secondary-content delete">
+									 <i class="material-icons">close</i>
+								   </a>
+								 </div>
+							   </li>
+							{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+			</div>
+
+			<!-- Hidden Inputs -->
+			<input type="hidden" name="views" value="{{ recipe.views }}">
+			<input type="hidden" name="likes" value="{{ recipe.likes }}">
+			<input type="hidden" name="dislikes" value="{{ recipe.dislikes }}">
+
+            <!-- Submit Buttons -->
+            <div class="col s12">
+                <div class="card-action">
+                    <button class="btn" id="submitButton">Update</button>
+
+					<!-- Cannot be a button as that would submit the form -->
+                    <a href="{{ url_for('delete', id=recipe._id) }}" class="btn varBtnOne">Delete</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const submitButton = document.getElementById('submitButton')
+
+        submitButton.addEventListener('click', () => {
+            const allergens_nodes = Array.from(document.getElementsByClassName('optgroup-option active') || [])
+            const allergens = allergens_nodes.map(x => x.innerText)
+            
+            const diet_nodes = document.getElementsByClassName('select-dropdown')[1]
+            const diet = diet_nodes.getElementsByClassName('selected active')
+
+            const cuisine_node = document.getElementsByClassName('select-dropdown')[3]
+            const cuisine = cuisine_node.getElementsByClassName('selected active')
+
+            const ingredients_container = Array.from(document.getElementsByClassName('todos')[0].children)
+            const ingredients = ingredients_container.map(x => x.innerText.replace('close',''))
+
+            const method_container = Array.from(document.getElementsByClassName('method')[0].children)
+            const method = method_container.map(x => x.innerText.replace('close',''))
+            
+            const author = document.getElementById('author_name').value
+            const recipe = document.getElementById('recipe_name').value
+            const image = document.getElementById('textarea1').value
+
+            data = JSON.stringify({
+                allergens,
+                'diet': diet.length > 0 ? diet[0].lastChild.innerText : "",
+                'cuisine': cuisine.length > 0 ? cuisine[0].lastChild.innerText : "",
+                ingredients,
+                method,
+                author,
+                recipe,
+                image
+            })
+            
+            fetch(window.location.href, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            })
+        })
+    })
+</script>
+{% endblock %}

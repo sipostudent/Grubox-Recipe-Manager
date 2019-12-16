@@ -1,0 +1,112 @@
+{% extends 'base.html' %} {% block content %}
+
+  <!-- Home Page Slider -->
+    <section>
+        <div class="row">
+            <div class="col s12 m6 l8" style="margin-top: .5rem">
+                <div class="slider">
+                    <ul class="slides">
+                        <li>
+                            <img src="{{ url_for('static', filename='img/chocolate-with-milted-chocolate-on-white-ceramic-plate-45202.jpg') }}" alt="carrot">
+                            <div class="caption center-align">
+                                <h2>Simply Green</h2>
+                                <h5 class="white-text">Deliciousness Jumping into the Mouth</h5>
+                            </div>
+                        </li>
+
+                        <li>
+                            <img src="{{ url_for('static', filename='img/chicken.jpg') }}" alt="couscous">
+                            <div class="caption left-align">
+                                <h2>Speak with the Taste</h2>
+                                <h5 class="white-text">The Pleasure of Variety on Your Plate</h5>
+                            </div>
+                        </li>
+
+                        <li>
+                            <img src="{{ url_for('static', filename='img/top-view-of-food-1640772.jpg') }}" alt="cucumber">
+                            <div class="caption right-align">
+                                <h2>Better Food Better Mood</h2>
+                                <h5 class="white-text">Choose and Taste to Your Place</h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="col s12 m6 l4">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <h5>
+                            Features
+                        </h5>
+                    </li>
+
+                    <li class="collection-item avatar">
+                        <img src="{{ url_for('static', filename='img/check-favicon.png') }}" alt="avatar" class="circle">
+                        <span class="title">1. Make an Account</span>
+                        <p class="truncate">
+                            Save your recipes by creating an account.
+                        </p>
+                        <a class="modal-trigger" href="#modal1"><u>Read More</u></a>
+                    </li>
+
+                    <li class="collection-item avatar">
+                        <img src="{{ url_for('static', filename='img/check-favicon.png') }}" alt="spoon" class="circle">
+                        <span class="title">2. Add a Recipe</span>
+                        <p class="truncate">
+                            Create your own personal recipe collection.
+                        </p>
+                        <a class="modal-trigger" href="#modal2"><u>Read More</u></a>
+                    </li>
+
+                    <li class="collection-item avatar">
+                        <img src="{{ url_for('static', filename='img/check-favicon.png') }}" alt="database" class="circle">
+                        <span class="title">3. Manage Your Collection</span>
+                        <p class="truncate">
+                            Intuitively organise your personal recipes by tags.
+                        </p>
+                        <a class="modal-trigger" href="#modal3"><u>Read More</u></a>
+                    </li>
+
+                    <li class="collection-item avatar">
+                        <img src="{{ url_for('static', filename='img/check-favicon.png') }}" alt="database" class="circle">
+                        <span class="title">4. Invite Friends to Grubox</span>
+                        <p class="truncate">
+                            Share recipes with other subscribers of Grubox .
+                        </p>
+                        <a class="modal-trigger" href="#modal4"><u>Read More</u></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highest Viewed Recipes -->
+    <section class="center">
+        <div class="row">
+            <h5>
+                Highest Views
+            </h5>
+        </div>
+
+        <div class="row--recipes">
+
+            {% for recipe in recipes %}
+                
+                <article class="recipe-card">
+                    <a href="{{ url_for('view', id=recipe._id) }}" class="recipe-card__thumbnail-container">
+                        <img src="{{ recipe.image }}" width="600" height="600" class="recipe-card__thumbnail">
+                    </a>
+                    <div class="collection-item avatar">
+                        <span class="title truncate">{{ recipe.recipe }}</span>
+                        <p class="truncate">{{ recipe.date }} {{ recipe.time }}</p>
+                    </div>
+                </article>
+
+            {% endfor %} 
+        
+        </div>
+    </section>
+
+{% endblock %}

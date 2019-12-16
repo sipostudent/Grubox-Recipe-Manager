@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Let browser know website is optimized for mobile-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Import fontawesome.css-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}" />
+
+    <!--Import favicon-->
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/utensils-favicon.png') }}">
+
+    <!--Import main.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    <title>{{ title }}</title>
+</head>
+
+<body class="page-container">
+
+    {% include 'nav.html' %}
+
+    <main class="main">
+        {% block content%}{%endblock%}
+    </main>
+
+    <!-- Footer -->
+    <footer class="section center">
+        <p>Grubox Copyright &copy; 2019</p>
+    </footer>
+
+    <!-- Fixed Action Button -->
+    <div class="fixed-action-btn">
+        <a href="#" id="scroll" class="modal-trigger btn-floating">
+            <i class="material-icons">expand_less</i>
+        </a>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <h4>
+                <span>Sign</span>
+                <span>up</span>
+            </h4>
+
+            <form>
+                <div class="input-field">
+                    <input type="text" id="name">
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="email" id="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password">
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password2">
+                    <label for="password2">Confirm Password</label>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close btn">
+                    <span>Submit</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Modal 1 -->
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>Make an Account</h5>
+            <ul>
+                <li>
+                    Save your favourite recipes from websites, or simply those from your head, all in one place, accessible on all of your devices, anytime.
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn varBtnTwo">Ok</a>
+        </div>
+    </div>
+
+    <!-- Features Modal 2 -->
+    <div id="modal2" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>Add a Recipe</h5>
+            <ul>
+                <li>
+                    Create your own personal recipe collection by Searching the internet for recipes, find the recipes you want to saving.
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn varBtnTwo">Ok</a>
+        </div>
+    </div>
+
+    <!-- Features Modal 3 -->
+    <div id="modal3" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>Manage Your Recipes</h5>
+            <ul>
+                <li>
+                    To add a tag, type something into the relevant field or select from dropdown. The tags will then be added to the recipe when you press the publish button. You can also include a URL image.
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn varBtnTwo">Ok</a>
+        </div>
+    </div>
+
+    <!-- Features Modal 4 -->
+    <div id="modal4" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5>Invite Friends to Grubox</h5>
+            <ul>
+                <li>
+                    Invite your friends to join Grubox Online Cookbook, share your recipes with them and view their recipes. 
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn varBtnTwo">Ok</a>
+        </div>
+    </div>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  
+  <script>
+    // Dropdown
+    $(document).ready(function () {
+      $('.dropdown-button').dropdown({
+        constrainWidth: false,
+        hover: true,
+        belowOrigin: true,
+        alignment: 'left'
+      });
+
+      // Side Navigation
+      $('.button-collapse').sideNav();
+
+      // Init Modal
+      $('.modal').modal();
+
+      // Image Slider
+      $('.slider').slider({
+        indicators: true,
+        height: 400,
+        transition: 500,
+        interval: 6000
+      });
+
+      // TRIGGER MODAL
+      $('.modal').modal({
+        dismissible: true,
+        inDuration: 300,
+        outDuration: 200,
+        ready: function (modal, trigger) {
+          console.log('Modal Opened', modal, trigger);
+        }
+      });
+
+      // Autocomplete 
+      $('.autocomplete').autocomplete({
+        data: {
+          "Low Carbohydrate": null,
+          "Vegan": null,
+          "Vegetarian": null,
+          "Unknown": null,
+          "Asian": null,
+          "Latin": null,
+          "None": null,
+          "USA": null,
+          "European": null,
+          "African": null,
+          "Nuts": null,
+          "Eggs": null,
+          "Soy": null,
+          "Dairy": null,
+          "Crustacean": null,
+          "Gluten": null,
+          "Fish": null,
+        }
+      });
+
+      // FLOAT TO TOP
+
+      $('#scroll').click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+
+  </script>
+
+  {% if request.endpoint == 'create' or request.endpoint == 'edit' %}
+  
+  
+
+    <script>
+        // Dropdown
+        $(document).ready(function () {
+            $('.dropdown-button').dropdown({
+                constrainWidth: false,
+                hover: true,
+                belowOrigin: true,
+                alignment: 'left'
+            });
+
+            // Side Navigation
+            $('.button-collapse').sideNav();
+
+            // Init Modal
+            $('.modal').modal();
+
+            // Image Slider
+            $('.slider').slider({
+                indicators: true,
+                height: 400,
+                transition: 500,
+                interval: 6000
+            });
+
+          
+
+            // Hide Sections
+            $('.section').hide();
+
+           
+            // Ingredient Todo
+            $('#add-ingredient').on('click', function (e) {
+                e.preventDefault();
+
+                // Check that blank values cannot be added
+                let val = $('#todo').val();
+                if (val.length < 1) return false;
+
+                const output = `<li class="collection-item">
+				 <div>${$('#todo').val()}
+				   <input value="${$('#todo').val()}" type="hidden" name="ingredient">
+				   <a href="#!" class="secondary-content delete">
+					 <i class="material-icons">close</i>
+				   </a>
+				 </div>
+			   </li>`;
+
+                $('.todos').append(output);
+                Materialize.toast('Ingredient Added', 3000);
+
+                // e.preventDefault();
+            });
+
+            // Delete Ingredient Todo
+            $('.todos').on('click', '.delete', function (e) {
+                e.preventDefault();
+                $(this).parent().parent().remove();
+                Materialize.toast('Ingredient Removed', 3000);
+
+                // e.preventDefault();
+            });
+
+            // Method Todo
+            $('#add-method').on('click', function (e) {
+                e.preventDefault();
+
+				 // Check that blank values cannot be added
+                let val = $('#todo-2').val();
+                if (val.length < 1) return false;
+
+                const output = `<li class="collection-item">
+				 <div>${$('#todo-2').val()}
+					<input value="${$('#todo-2').val()}" type="hidden" name="method">
+				   <a href="#!" class="secondary-content delete">
+					 <i class="material-icons">close</i>
+				   </a>
+				 </div>
+			   </li>`;
+
+                $('.method').append(output);
+                Materialize.toast('Method Added', 3000);
+
+                // e.preventDefault();
+            });
+
+            // Delete Method Todo
+            $('.method').on('click', '.delete', function (e) {
+                $(this).parent().parent().remove();
+                Materialize.toast('Method Removed', 3000);
+
+                // e.preventDefault();
+            });
+
+            // Chips
+            $('.chips-input').material_chip({
+                placeholder: 'Add Tags',
+				name: 'tags',
+                secondaryPlaceholder: '+tag',
+                autocompleteOptions: {
+                    data: {
+                        'easy': null,
+                        'medium': null,
+                        'hard': null
+                    }
+                }
+            });
+
+            // Autocomplete 
+            $('.autocomplete').autocomplete({
+                data: {
+                    "Low Carbohydrate": null,
+                    "Vegan": null,
+                    "Vegetarian": null,
+                    "Unknown": null,
+                    "Asian": null,
+                    "Latin": null,
+                    "None": null,
+                    "USA": null,
+                    "European": null,
+                    "African": null,
+                    "Nuts": null,
+                    "Eggs": null,
+                    "Soy": null,
+                    "Dairy": null,
+                    "Crustacean": null,
+                    "Gluten": null,
+                    "Fish": null,
+                }
+            });
+
+            setTimeout(function () {
+                $(document).ready(function () {
+                    // Show sections
+                    $('.section').fadeIn();
+
+                    // Hide preloader
+                    $('.loader').fadeOut();
+
+                    // Init Select
+                    $('select').material_select();
+                    document.querySelectorAll('.select-wrapper').forEach(t => t.addEventListener('click', e=>e.stopPropagation()))
+                   
+
+                });
+            }, 1000);
+        });
+    </script>
+  
+  {% endif %}  
+
+</body>
+
+</html>

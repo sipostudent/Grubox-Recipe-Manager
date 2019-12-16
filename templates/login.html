@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+
+    <section class="section section-login">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Sign In -->
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    <div class="card-panel login center">
+                        <h2 class="varThree">
+                            Sign In
+                        </h2>
+
+                        <form action="{{ url_for('login') }}" method="POST">
+                            {% if error == 'incorrect_login' %}
+                                <span style="color: red;">Your login details were incorrect.</span>
+                            {% endif %}
+                            <div class="input-field">
+                                <i class="sign-register-icon material-icons prefix">email</i>
+                                <input type="email" id="email" name="email" required value="{{ user.email }}">
+                                <label class="dark-grey" for="email">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="sign-register-icon material-icons prefix">lock</i>
+                                <input type="password" id="password" name="password" required value="{{ user.password }}">
+                                <label class="dark-grey" for="password">Password</label>
+                            </div>
+                            <br>
+                            <input type="submit" value="Sign In" class="btn btn-large btn-extended varBtnTwo">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  {% endblock %}

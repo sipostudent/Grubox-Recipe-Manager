@@ -1,0 +1,127 @@
+{% block content %}
+
+    <!-- Main Navigation -->
+    <nav >
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{{ url_for('index') }}" class="brand-logo"> 
+                    <span class="varOne">Grub</span><span class="varTwo">ox</span>
+                </a>
+                <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
+                    <i class="material-icons menu">menu</i>
+                </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li {% if request.endpoint == 'index' %}class = "active" {% endif %}>
+                            <a class="{% if request.endpoint == 'index' %}white-text {% else %} {% endif %}" href="{{ url_for('index') }}">Home
+                            </a>
+                        </li>
+                        <li {% if request.endpoint == 'recipes' %}class = "active" {% endif %}>
+                            <a class="{% if request.endpoint == 'recipes' %} white-text {% else %} {% endif %}" href="{{ url_for('recipes') }}">Recipes
+                            </a>
+                        </li>
+                        <li {% if request.endpoint == 'create' %}class = "active" {% endif %}>
+                            <a class="{% if request.endpoint == 'create' %}white-text {% else %} {% endif %}" href="{{ url_for('create') }}">Create
+                            </a>
+                        </li>
+                        
+                        {% if session['email'] != None %}
+                            <li {% if request.endpoint == 'account' %}class = "active" {% endif %}>
+                                <a class="{% if request.endpoint == 'account' %}white-text {% else %} {% endif %}" href="{{ url_for('account') }}">
+                                    Account
+                                    <i class="material-icons right {% if request.endpoint == 'account' %}white-text {% else %} {% endif %}">account_circle</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class=" " href="{{ url_for('logout') }}">Sign Out
+                                </a>
+                            </li>
+                            
+                            {% else %}
+                            <li {% if request.endpoint == 'login' %}class = "active" {% endif %}>
+                                <a class="{% if request.endpoint == 'login' %}white-text {% else %} {% endif %}" href="{{ url_for('login') }}">Sign In
+                                </a>
+                            </li> 
+                            <li {% if request.endpoint == 'register' %}class = "active" {% endif %}>
+                                <a class="{% if request.endpoint == 'register' %}white-text {% else %} {% endif %}" href="{{ url_for('register') }}">Register
+                                </a>
+                            </li>  
+                            
+                        {% endif %}
+                    </ul>
+
+                <!-- Side Navigation -->
+                <ul id="side-nav" class="side-nav">
+                    
+                    {% if session['email'] != None %}
+                    <li>
+                        <div class="user-view">
+                            <div class="background"></div>
+                            <a href="#">
+
+                                <h3 class="center"><span class="varOne">Grub</span><span class="varFour">ox</span></h3>
+                            </a>
+                            <a href="#">
+                                <span class="name">{{ session['name'] }}</span>
+                            </a>
+                            <a href="#">
+                                <span class="email">{{ session['email'] }}</span>
+                            </a>
+                        </div>
+                    </li>
+                    
+                    {% else %}
+                    <li>
+                        <div class="non-user-view">
+                            <a href="#">
+                                <h3 class="center"><span class="varOne">Grub</span><span class="varTwo">ox</span></h3>
+                            </a>
+                        </div>
+                    </li>
+
+                    {% endif %}
+                    <li {% if request.endpoint == 'index' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('index') }}">
+                            <i class="material-icons {% if request.endpoint == 'index' %}white-text {% else %} {% endif %}">home</i>
+                            <span {% if request.endpoint == 'index' %}class="white-text"{% endif %}>Home</span>
+                        </a>
+                    </li>
+                    
+                    <li {% if request.endpoint == 'recipes' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('recipes') }}">
+                        <i class="material-icons {% if request.endpoint == 'recipes' %}white-text {% else %} {% endif %}">local_dining</i>
+                        <span {% if request.endpoint == 'recipes' %}class="white-text"{% endif %}>Recipes</span>
+                        </a>
+                    </li>
+                    
+                    <li {% if request.endpoint == 'create' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('create') }}"><i class="material-icons {% if request.endpoint == 'create' %}white-text {% else %} {% endif %}">create</i>
+                        <span {% if request.endpoint == 'create' %}class="white-text"{% endif %}>Create</span>
+                        </a>
+                    </li>
+                    
+                    {% if session['email'] != None %}
+                    
+                    
+                    <li {% if request.endpoint == 'account' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('account') }}" class="{% if request.endpoint == 'account' %}white-text {% else %} {% endif %}">Account <i class="material-icons {% if request.endpoint == 'account' %}white-text {% else %} {% endif %}">account_circle</i></a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ url_for('logout') }}" class="waves-effect"><i class="material-icons ">exit_to_app</i> Sign Out</a>
+                    </li>
+                    
+                        {% else %}
+                    <li {% if request.endpoint == 'login' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('login') }}" class="waves-effect"><i class="material-icons {% if request.endpoint == 'login' %}white-text {% else %} {% endif %}">exit_to_app</i> Sign In</a>
+                    </li>
+                    <li {% if request.endpoint == 'register' %}class = "active" {% endif %}>
+                        <a href="{{ url_for('register') }}" class="waves-effect"><i class="material-icons {% if request.endpoint == 'register' %}white-text {% else %} {% endif %}">exit_to_app</i> Register</a>
+                    </li>
+                    {% endif %}
+                    
+                </ul>
+            </div>
+        </div>
+  </nav>
+
+  {% endblock %}

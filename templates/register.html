@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+
+    <section class="section section-login">
+        <div class="container">
+            <div class="row">
+
+                <!-- Register -->
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    <div class="card-panel login center">
+                        <h2 class="varThree">
+                            Register
+                        </h2>
+                        <form action="{{ url_for('register') }}" method="POST">
+                            <div class="input-field">
+                                <i class="material-icons prefix">face</i>
+                                <input type="text" id="name" name="name" required>
+                                <label class="dark-grey" for="email">Full Name</label>
+                            </div>
+
+                            <div class="input-field">
+                                <i class="material-icons prefix">email</i>
+                                <input type="email" id="email" name="email" required>
+                                <label class="dark-grey" for="email">Email</label>
+                                {% if error == 'user_exists' %}
+                                    <span class="existing-email">That email address already exists.</span>
+                                {% endif %}
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input type="password" id="password" name="password" required>
+                                <label class="dark-grey" for="password">Password</label>
+                            </div>
+                            <input type="submit" value="Register" class="btn btn-large btn-extended varBtnTwo">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

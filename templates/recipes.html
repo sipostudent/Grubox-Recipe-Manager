@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block content %}
+
+    <section>
+        <form method="POST">
+        <div class="row">
+            <br>
+            <h5 class="center">All Recipes</h5>
+            <br>
+
+            <div class="input-field col s12 m6 l3">
+                <!-- Recipe Counter -->
+                <div>
+                    Enter amount of recipes to show:
+                    <div class="input-field inline">
+                        <input  type="text" name="limit" placeholder="#8" value="{{ limit }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="row">
+            <div class="input-field col s12 m6 l3">
+            <div class="card-action">
+                <button class="btn">Submit</button>
+                <a href="{{ url_for('recipes') }}" class="btn varBtnOne">Clear</a>
+            </div>
+            </div>
+        </div>
+        
+        </form>
+    </section>
+
+
+
+    <!-- Recipe Gallery -->
+    <section class="section center">
+        <div class="row">
+            {% for recipe in recipes %}
+                
+                <!-- Recipe Image Card -->
+                <article class="col s12 m6 l3">
+                    <a href="{{ url_for('view', id=recipe._id) }}">
+                        <img src="{{ recipe.image }}" width="800" height="600" alt="" class="responsive-img">
+                    </a>
+                    <div>
+                        <span class="title truncate">{{ recipe.recipe }}</span>
+                        <p class="truncate">{{ recipe.date }} {{ recipe.time }}</p>
+                        {% if recipe.email == session['email'] %}
+                            <a href="{{ url_for('edit', id=recipe._id) }}" class="approve">
+                                <i class="material-icons view-icon-one">edit</i>
+                            </a>
+                        {% endif %}
+                        <a href="{{ url_for('like', id=recipe._id) }}" class="stats">
+                            {{ recipe.likes }}
+                            <i class="material-icons view-icon-two stats__icon stats__icon--like">thumb_up</i>
+                        </a>
+                        <a href="{{ url_for('dislike', id=recipe._id) }}" class="stats">
+                            {{ recipe.dislikes }}
+                            <i class="material-icons view-icon-two stats__icon">thumb_down</i>
+                        </a>
+                        <a href="{{ url_for('view', id=recipe._id) }}" class="subheader stats">
+                            {{ recipe.views }}
+                            <i class="material-icons view-icon-two stats__icon">visibility</i>
+                        </a>
+                    </div>
+                </article>
+            {% endfor %} 
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <div class="section">
+        <div class="row">
+            <div class="center">
+                <ul class="pagination">
+                    <li {% if page==1 %} class="disabled" {% endif %}>
+                        <a {% if page>1 %}href="{{ url_for('recipes', page=page-1, limit=limit) }}"{% endif %}>
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                    </li>
+                    {% for page in pages %}
+                        <li class="active">
+                            <a href="{{ url_for('recipes', page=page, limit=limit) }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+                    <li {% if page==maximum %} class="disabled" {% endif %}>
+                        <a {% if page!=maximum %}href="{{ url_for('recipes', page=page + 1, limit=limit) }}"{% endif %}>
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

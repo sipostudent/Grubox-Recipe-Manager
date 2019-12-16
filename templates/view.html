@@ -1,0 +1,163 @@
+{% extends 'base.html' %} {% block content %}
+    <section>
+        <div class="row">
+            <br>
+            <h5 class="center">View Recipe</h5>
+            <br>
+            <!-- Image Card -->
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <img class="materialboxed responsive-img" alt="random" src="{{ recipe.image }}">
+                        <span class="card-title">{{ recipe.recipe }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                <tr>
+                                    <td>Author Name</td>
+                                    <td class>{{ recipe.author }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Recipe Name</td>
+                                    <td>{{ recipe.recipe }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                <tr>
+                                    <td>Publish Time</td>
+                                    <td>{{ recipe.time}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Publish Date</td>
+                                    <td>{{ recipe.date }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="col s12 l8 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                <tr>
+                                    <td>Diet</td>
+                                    <td>
+                                        {% if recipe.diet %}
+                                            {{ recipe.diet }}
+                                        {% else %}
+                                            None
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cuisine</td>
+                                    <td>
+                                        {% if recipe.cuisine %}
+                                            {{ recipe.cuisine }}
+                                        {% else %}
+                                            None
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>Allergens</td>
+                                    <td>
+                                        {% if not recipe.allergens %}
+                                            None
+                                        {% endif %}
+                                        {% for allergen in recipe.allergens %}
+                                            {{ allergen }},
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Views</td>
+                                    <td>{{ recipe.views }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="row">   
+            <!-- Details Card -->
+            <div class="col s12 m6">
+                <h5 class="center">Method</h5>
+                <br>
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                 {% for step in recipe.method %}
+                                <tr>
+                                    <td>#{{ loop.index }}</td>
+                                    <td>{{ step }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="col s12 m6">
+                <h5 class="center">Ingredients</h5>
+                <br>
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                  {% for ingredient in recipe.ingredients %}
+                                <tr>
+                                    <td>#{{ loop.index }}</td>
+                                    <td>{{ ingredient }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% if recipe.email == session['email'] %}
+            <div class="col s12">
+               
+                <div class="card-action">
+                    <a href="{{ url_for('edit', id=recipe._id) }}" class="btn">Edit</a>
+
+					<!-- Cannot be a button as that would submit the form -->
+                    <a href="{{ url_for('delete', id=recipe._id) }}" class="btn varBtnOne">Delete</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

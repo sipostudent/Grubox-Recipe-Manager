@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block content %}
+
+    <section>
+        <div class="row">
+            <br>
+            <h5 class="center">My Recipes</h5>
+        </div>
+
+        <!-- Recipe Counter -->
+        <div class=" col s12 m6 l3">
+            <div>
+                Number of recipes: <span for="users">{{ count }}</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Gallery -->
+    <section class="section center">
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col s12 m6 l3">
+                    <a href="{{ url_for('view', id=recipe._id) }}">
+                        <img src="{{ recipe.image }}" width="800" height="600" class="responsive-img">
+                    </a>
+                    <div>
+                        <span class="title truncate">{{ recipe.recipe }}</span>
+                        <p class="truncate">{{ recipe.date }} {{ recipe.time }}</p>
+                        <a href="{{ url_for('edit', id=recipe._id) }}" class="approve">
+                            <i class="material-icons view-icon-one">edit</i>
+                        </a>
+                        <a href="{{ url_for('view', id=recipe._id) }}" class="stats subheader">
+                            {{ recipe.views }}
+                            <i class="material-icons view-icon-two stats__icon">visibility</i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% if count > 8 %}
+
+        <!-- Pagnination -->
+        <div class="section">
+            <div class="row">
+                <div class="center">
+                    <ul class="pagination">
+                        <li {% if page==1 %} class="disabled" {% endif %}>
+                            <a {% if page>1 %}href="{{ url_for('account', page=page-1) }}"{% endif %}>
+                                <i class="material-icons">chevron_left</i>
+                            </a>
+                        </li>
+                        {% for page in pages %}
+                            <li class="active">
+                                <a href="{{ url_for('account', page=page) }}">{{ page }}</a>
+                            </li>
+                        {% endfor %}
+                        <li {% if page==maximum %} class="disabled" {% endif %}>
+                            <a {% if page!=maximum %}href="{{ url_for('account', page=page + 1) }}"{% endif %}>
+                                <i class="material-icons">chevron_right</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
