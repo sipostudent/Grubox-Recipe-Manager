@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-  <img src="img/grubox-snapshot.png" width="600">
+  <img src="static/img/grubox-snapshot.png" width="600">
   <br>
     <br>
   Grubox
