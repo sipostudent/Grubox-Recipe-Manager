@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Merriweather&display=swap:400');
 
 /*-----------------------------------------Body */
 
@@ -35,7 +35,7 @@ nav .brand-logo {
 
 .varOne {
   color: #d4ac1f;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .varThree {
@@ -44,6 +44,7 @@ nav .brand-logo {
 
 .varFour {
   color: #fff;
+  font-weight: 400;
 }
 
 .menu {

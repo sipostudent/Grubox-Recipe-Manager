@@ -39,7 +39,7 @@
 
     <!-- Fixed Action Button -->
     <div class="fixed-action-btn">
-        <a href="#" id="scroll" class="modal-trigger btn-floating">
+        <a href="#" id="scroll" style="display: none;" class="modal-trigger btn-floating">
             <i class="material-icons">expand_less</i>
         </a>
     </div>
@@ -168,6 +168,15 @@
         transition: 500,
         interval: 6000
       });
+
+    // Float Back To Top Smooth Scrolling
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+        $('#scroll').fadeIn();
+        } else {
+        $('#scroll').fadeOut();
+        }
+    });
 
       // TRIGGER MODAL
       $('.modal').modal({

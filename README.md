@@ -40,5 +40,3 @@
     - [Acknowledgements](#Acknowledgements)
         - [Untitled](#Untitled)
     <!--te-->
-
-...
