@@ -6,17 +6,20 @@ from flask import render_template, url_for, request, session, redirect, jsonify
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 
+
 app = Flask(__name__)
 app.secret_key = 'any random string'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 mongo = PyMongo(app)
+
 
 @app.route('/')
 def index():
     '''Retrieves four most viewed recipes in the recipes collection of database.
     Renders the template for the homepage and provides the recipe information for the template.'''
 
-    recipes = list(mongo.db.recipes.find().sort("views", pymongo.DESCENDING).limit(4))
+    recipes = list(mongo.db.recipes.find().sort(
+        "views", pymongo.DESCENDING).limit(4))
     return render_template('index.html', title='Home | Grubox', recipes=recipes)
 
 
@@ -29,13 +32,14 @@ def recipes(page=1, limit=8):
 
     if request.method == 'POST':
         limit = int(request.form['limit'])
-    
+
     page = int(page)
     #print(page, limit)
     skip = page * limit - limit
-    maximum = math.ceil( (mongo.db.recipes.count_documents({})) / limit)
+    maximum = math.ceil((mongo.db.recipes.count_documents({})) / limit)
 
-    recipes = list(mongo.db.recipes.find().sort("$natural", pymongo.DESCENDING).skip(skip).limit( limit ))
+    recipes = list(mongo.db.recipes.find().sort(
+        "$natural", pymongo.DESCENDING).skip(skip).limit(limit))
     return render_template(
         'recipes.html',
         title='Recipes | Grubox',
@@ -50,7 +54,8 @@ def recipes(page=1, limit=8):
 def view(id):
     '''Controls behavior of user-views increment operator.'''
 
-    mongo.db.recipes.find_one_and_update({"_id": ObjectId(id)}, {"$inc": {"views": 1}})
+    mongo.db.recipes.find_one_and_update(
+        {"_id": ObjectId(id)}, {"$inc": {"views": 1}})
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(id)})
     return render_template('view.html', title='View Recipe | Grubox', recipe=recipe)
 
@@ -60,7 +65,8 @@ def like(id):
     '''Controls behavior of user-like increment and decrements operator.
     Feature is dependant upon user interaction in the user-interface.'''
 
-    mongo.db.recipes.find_one_and_update({"_id": ObjectId(id)}, {"$inc": {"likes": 1}})
+    mongo.db.recipes.find_one_and_update(
+        {"_id": ObjectId(id)}, {"$inc": {"likes": 1}})
     return redirect(url_for('recipes'))
 
 
@@ -68,8 +74,9 @@ def like(id):
 def dislike(id):
     '''Controls behavior of user-dislike increment and decrements operator.
     Feature is dependant upon user interaction in the user-interface.'''
-    
-    mongo.db.recipes.find_one_and_update({"_id": ObjectId(id)}, {"$inc": {"dislikes": 1}})
+
+    mongo.db.recipes.find_one_and_update(
+        {"_id": ObjectId(id)}, {"$inc": {"dislikes": 1}})
     return redirect(url_for('recipes'))
 
 
@@ -111,7 +118,7 @@ def edit(id):
     email = session.get('email')
     if not email:
         return redirect(url_for('register'))
-    
+
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(id)})
 
     if request.method == 'POST':
@@ -130,9 +137,9 @@ def edit(id):
             )
 
             mongo.db.recipes.replace_one({"_id": ObjectId(id)}, update_recipe)
-            
+
         print(id)
-        
+
         return redirect(url_for('view', id=id))
 
     return render_template('edit.html', title='Edit Recipe | Grubox', recipe=recipe)
@@ -199,9 +206,10 @@ def account(page=1):
     page = int(page)
     skip = page * limit - limit
     maximum = math.ceil(mongo.db.recipes.count_documents({"email": email}) / 8)
-    count = mongo.db.recipes.find({ "email": email }).count()
-    recipes = list(mongo.db.recipes.find({"email": email}).sort("$natural", pymongo.DESCENDING).skip(skip).limit( 8 ))
-    
+    count = mongo.db.recipes.find({"email": email}).count()
+    recipes = list(mongo.db.recipes.find({"email": email}).sort(
+        "$natural", pymongo.DESCENDING).skip(skip).limit(8))
+
     return render_template(
         'account.html',
         title='My Account | Grubox',
@@ -211,6 +219,7 @@ def account(page=1):
         maximum=maximum,
         count=count
     )
+
 
 @app.route('/signup', methods=['POST', 'GET'])
 def register():
@@ -229,7 +238,7 @@ def register():
     # check for logged in user
     email = session.get('email')
     if email:
-      return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
     user = None
     if request.method == 'POST':
