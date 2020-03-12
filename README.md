@@ -1,15 +1,15 @@
 <h1 align="center">
 <br>
-  <img src="static/img/online-cookbook-sipo.herokuapp.com_(iPad Pro) (1).png" width="600">
+  <img src="static/img/grubox-recipe-manager.png" width="600">
   <br>
     <br>
-  Grubox
+  Grubox - Recipe Manager
   <br>
 </h1>
 
 <h3 align="center">Data Centric Development</h3>
 
-<h4 align="center">A recipe manager, accessible online, which enables users to create, read, update and delete recipes</h4>
+<h4 align="center">A Recipe Manager, Accessible Online, Which Enables Users to Create, Read, Update and Delete Recipes</h4>
 
 ## Table of Contents
 
